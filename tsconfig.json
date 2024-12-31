@@ -10,8 +10,8 @@
       "es2018",
       "esnext"
     ],
-    "target": "es5",
-    "module": "esnext",
+    "target": "esnext",                 
+    "module": "commonjs",               
     "moduleResolution": "node",
     "rootDir": "./src",
     "outDir": "./dist",
@@ -21,6 +21,9 @@
     "inlineSources": true,
     "esModuleInterop": true,
     "noErrorTruncation": true,
-    "jsx": "react-native"
+    "jsx": "react-native",
+    "skipLibCheck": true,              
+    "strict": false,
+    "noEmitOnError": false                
   }
 }

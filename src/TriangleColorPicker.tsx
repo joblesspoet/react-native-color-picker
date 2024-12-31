@@ -45,6 +45,7 @@ export class TriangleColorPicker extends React.PureComponent<
   private _isRTL: boolean;
   private _pickerResponder: PanResponderInstance;
   private _changingHColor: boolean;
+  private pickerContainerRef: React.RefObject<View>;
 
   public static defaultProps: ITrianglePickerProps = {
     rotationHackFactor: 100,
@@ -87,6 +88,8 @@ export class TriangleColorPicker extends React.PureComponent<
       },
       onMove: this._handleColorChange,
     })
+
+    this.pickerContainerRef = React.createRef(); // Create the ref here
   }
 
   _getColor() {
@@ -138,8 +141,8 @@ export class TriangleColorPicker extends React.PureComponent<
     // we always measure because layout is the same even though picker is moved on the page
     InteractionManager.runAfterInteractions(() => {
       // measure only after (possible) animation ended
-      this.refs.pickerContainer &&
-        (this.refs.pickerContainer as any).measure(
+      this.pickerContainerRef.current &&
+        (this.pickerContainerRef.current as any).measure(
           (x, y, width, height, pageX, pageY) => {
             // picker position in the screen
             this._pageX = pageX
@@ -285,7 +288,7 @@ export class TriangleColorPicker extends React.PureComponent<
       <View style={style}>
         <View
           onLayout={this._onLayout}
-          ref="pickerContainer"
+          ref={this.pickerContainerRef}
           style={styles.pickerContainer}
         >
           {!pickerSize ? null : (
